@@ -24,8 +24,6 @@ const LoginPage = () => {
     const navigation = useNavigation()
     const loggedUser = useAppSelector((state) => state.login.loggedUser)
     const dispatch = useDispatch()
-
-
     const getUser = async () => {
         try {
             const res = await axios.get(`http://10.0.2.2:5082/api/User/${encodeURIComponent(email)}, ${encodeURIComponent(password)}`)
@@ -44,7 +42,7 @@ const LoginPage = () => {
                 <View style={styles.decor}>
                     <Text style={styles.title}>Welcome to Study Buddy Finder</Text>
                     <Text style={styles.subtitle}>сука блять иди нахуй</Text>
-                    <View style ={styles.circle}><Image style={{width:200,height:200, marginLeft:-8}}source={require('../assets/Logo.png')}/></View>
+                    <View style={styles.circle}><Image style={{ width: 200, height: 200, marginLeft: -8 }} source={require('../assets/Logo.png')} /></View>
                 </View>
                 {warning == true ?
                     <View style={styles.warning}>
@@ -81,14 +79,14 @@ const LoginPage = () => {
     )
 }
 const styles = StyleSheet.create({
-    circle:{
-        backgroundColor:'#3B414A',
-        borderRadius:1000,
-        marginTop:50,
-        height:350,
-        width:350,
-        alignItems:'center',
-        justifyContent:'center'
+    circle: {
+        backgroundColor: '#3B414A',
+        borderRadius: 1000,
+        marginTop: 50,
+        height: 350,
+        width: 350,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     line: {
         height: 5,

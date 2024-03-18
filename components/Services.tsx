@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         height:5,
         margin:25,
         marginTop:10,
-        backgroundColor:'#3B414A'
+        backgroundColor:'#FF5513'
     },
     services: {
         fontFamily: 'Montserrat-Bold',
