@@ -22,7 +22,7 @@ const Services = () => {
                         <Text style={styles.buttonText}>Privacy Settings</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.line}></View>
+                
             </View>
         </SafeAreaView>
     )
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         height:5,
         margin:25,
         marginTop:10,
-        backgroundColor:'#FF5513'
+        backgroundColor:'#3B414A'
     },
     services: {
         fontFamily: 'Montserrat-Bold',

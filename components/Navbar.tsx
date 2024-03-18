@@ -1,52 +1,57 @@
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useNavigation } from "@react-navigation/core"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { user } from "../src/LoginPage"
+import { useAppSelector } from "../redux/hook"
 
-
+export type NeedsUser = {
+    user: user
+}
 const Navbar = () => {
     const navigation = useNavigation()
     const [selectedButton, setSelectedButton] = useState('Home')
-
-    const navButtonPress = (buttonName:string)=>{
+    const loggedUser = useAppSelector((state)=>state.login.loggedUser)
+    const navButtonPress = (buttonName: string) => {
         setSelectedButton(buttonName)
         navigation.navigate(buttonName)
     }
 
     return (
         <SafeAreaView>
-            <View style={styles.navbarContainer}>
-                <TouchableOpacity style={styles.navButton} onPress={()=>navButtonPress('Home')}>
+            {loggedUser? <View style={styles.navbarContainer}>
+                <TouchableOpacity style={styles.navButton} onPress={() => navButtonPress('Home')}>
                     <Image source={require('../assets/Navbar/Home.png')} />
-                    <View style={selectedButton == 'Home'? styles.selected:styles.unselected}></View>
+                    <View style={selectedButton == 'Home' ? styles.selected : styles.unselected}></View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.navButton} onPress={()=>navButtonPress('FindBuddy')}>
+                <TouchableOpacity style={styles.navButton} onPress={() => navButtonPress('FindBuddy')}>
                     <Image source={require('../assets/Navbar/Find.png')} />
-                    <View style={selectedButton == 'FindBuddy'? styles.selected:styles.unselected}></View>
+                    <View style={selectedButton == 'FindBuddy' ? styles.selected : styles.unselected}></View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.navButton} onPress={()=>navButtonPress('RequestNotif')}>
+                <TouchableOpacity style={styles.navButton} onPress={() => navButtonPress('RequestNotif')}>
                     <Image source={require('../assets/Navbar/Requests.png')} />
-                    <View style={selectedButton == 'RequestNotif'? styles.selected:styles.unselected}></View>
+                    <View style={selectedButton == 'RequestNotif' ? styles.selected : styles.unselected}></View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.navButton} onPress={()=>navButtonPress('Chats')}>
+                <TouchableOpacity style={styles.navButton} onPress={() => navButtonPress('Chats')}>
                     <Image source={require('../assets/Navbar/Chats.png')} />
-                    <View style={selectedButton == 'Chats'? styles.selected:styles.unselected}></View>
+                    <View style={selectedButton == 'Chats' ? styles.selected : styles.unselected}></View>
                 </TouchableOpacity>
-            </View>
+            </View>: <></>}
+            
         </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({
-    unselected:{
-        display:'none'
+    unselected: {
+        display: 'none'
     },
-    selected:{
-        width:35,
-        height:35,
-        backgroundColor:'grey',
-        position:'absolute',
-        borderRadius:10,
-        zIndex:-1
+    selected: {
+        width: 35,
+        height: 35,
+        backgroundColor: 'grey',
+        position: 'absolute',
+        borderRadius: 10,
+        zIndex: -1
     }
     ,
     navbarContainer: {
