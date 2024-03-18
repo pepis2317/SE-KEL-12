@@ -3,14 +3,29 @@ import Header from "../components/Header"
 import RecentChats from "../components/RecentChats"
 import Services from "../components/Services"
 import Promotional from "../components/Promotional"
+import { useEffect, useState } from "react"
+import { useNavigation } from "@react-navigation/native"
+import { useAppSelector } from "../redux/hook"
+import { useDispatch } from "react-redux"
+import { userLogout } from "../redux/slices/LoginSlice"
 
 const Home = () => {
+    const loggedUser = useAppSelector((state)=>state.login.loggedUser)
+    const navigation = useNavigation()
+    const dispatch = useDispatch()
+    const logoutButton = ()=>{
+        dispatch(userLogout())
+        navigation.navigate('LoginPage')
+    }
+    
     return (
         <SafeAreaView>
             <ScrollView style={styles.background}>
                 <View style={styles.top}>
-                    <View style={styles.Nothing}>
-
+                    <View style={styles.Logout}>
+                        <TouchableOpacity style={styles.LogoutButton} onPress={logoutButton}>
+                            <Text style={{color:'black', textAlign:'center'}}>Logout</Text>
+                        </TouchableOpacity>
                     </View>
                     <Text style={styles.topText}>Home</Text>
 
@@ -18,7 +33,7 @@ const Home = () => {
                         <Image source={require('../assets/Info.png')} />
                     </TouchableOpacity>
                 </View>
-                <Header username="Username" />
+                <Header username={loggedUser== null? "Username":loggedUser.username} />
                 <RecentChats />
                 <Services />
                 <Promotional />
@@ -27,10 +42,17 @@ const Home = () => {
     )
 }
 const styles = StyleSheet.create({
-    Nothing: {
+    LogoutButton:{
+        position:'absolute',
+        backgroundColor:'white',
+        padding:8,
+        borderRadius:10,
+        width:64
+    },
+    Logout: {
         width: 32,
         height: 32,
-
+        justifyContent:'center'
     },
     background: {
         backgroundColor: '#20232A'

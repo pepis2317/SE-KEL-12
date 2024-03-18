@@ -9,30 +9,30 @@ const Services = () => {
             <View>
                 <Text style={styles.services}>Services</Text>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.serviceButton} onPress={()=>navigation.navigate('SetupStudyLocation')}>
+                    <TouchableOpacity style={styles.serviceButton} onPress={() => navigation.navigate('SetupStudyLocation')}>
                         <Image source={require('../assets/Services/SetupLocation.png')} style={styles.setupImage} />
                         <Text style={styles.buttonText}>Setup Study Location</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.serviceButton} onPress={()=>navigation.navigate('AccountSettings')}>
+                    <TouchableOpacity style={styles.serviceButton} onPress={() => navigation.navigate('AccountSettings')}>
                         <Image source={require('../assets/Services/AccountSettings.png')} style={styles.accountImage} />
                         <Text style={styles.buttonText}>Account Settings</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.serviceButton} onPress={()=>navigation.navigate('PrivacySettings')}>
+                    <TouchableOpacity style={styles.serviceButton} onPress={() => navigation.navigate('PrivacySettings')}>
                         <Image source={require('../assets/Services/PrivacySettings.png')} style={styles.privacyImage} />
                         <Text style={styles.buttonText}>Privacy Settings</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.line}></View>
+                <View style={styles.line}/>
             </View>
         </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({
-    line:{
-        height:5,
-        margin:25,
-        marginTop:10,
-        backgroundColor:'#FF5513'
+    line: {
+        height: 5,
+        margin: 25,
+        marginTop: 10,
+        backgroundColor: '#FF5513'
     },
     services: {
         fontFamily: 'Montserrat-Bold',
@@ -51,32 +51,32 @@ const styles = StyleSheet.create({
         backgroundColor: '#3B414A',
         borderRadius: 10,
         justifyContent: 'center',
-        padding:20,
+        padding: 20,
         alignItems: 'center',
         elevation: 3
     },
     setupImage: {
         width: 90,
         height: 90,
-        position:'relative',
-        right:3
+        position: 'relative',
+        right: 3
     },
-    accountImage:{
+    accountImage: {
         width: 90,
         height: 90,
-        position:'relative',
-        left:2
+        position: 'relative',
+        left: 2
     },
-    privacyImage:{
+    privacyImage: {
         width: 80,
         height: 80
     },
-    buttonText:{
-        color:'white',
-        textAlign:'center',
+    buttonText: {
+        color: 'white',
+        textAlign: 'center',
         fontFamily: 'Montserrat-SemiBold',
         fontSize: 12,
-        marginTop:15
+        marginTop: 15
     }
 })
 export default Services

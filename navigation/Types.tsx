@@ -2,7 +2,10 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { TestParams } from "../src/Test";
 
 
+
 export type RootStackParamList = {
+    RegisterPage:undefined,
+    LoginPage:undefined,
     Home: undefined,
     Test: TestParams,
     SetupStudyLocation:undefined,
@@ -10,7 +13,7 @@ export type RootStackParamList = {
     PrivacySettings:undefined,
     FindBuddy:undefined,
     RequestNotif:undefined,
-    Chats:undefined
+    Chats:undefined,
 }
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, T>;
