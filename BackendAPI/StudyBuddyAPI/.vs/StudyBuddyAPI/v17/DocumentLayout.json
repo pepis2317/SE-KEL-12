@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\Lenovo\\Desktop\\StudyBuddyFinder\\BackendAPI\\StudyBuddyAPI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|c:\\users\\lenovo\\desktop\\studybuddyfinder\\backendapi\\studybuddyapi\\studybuddyapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|solutionrelative:studybuddyapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|c:\\users\\lenovo\\desktop\\studybuddyfinder\\backendapi\\studybuddyapi\\studybuddyapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|solutionrelative:studybuddyapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|c:\\users\\lenovo\\desktop\\studybuddyfinder\\backendapi\\studybuddyapi\\studybuddyapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|solutionrelative:studybuddyapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,14 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|c:\\users\\lenovo\\desktop\\studybuddyfinder\\backendapi\\studybuddyapi\\studybuddyapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|solutionrelative:studybuddyapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|c:\\users\\lenovo\\desktop\\studybuddyfinder\\backendapi\\studybuddyapi\\studybuddyapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|solutionrelative:studybuddyapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|c:\\users\\lenovo\\desktop\\studybuddyfinder\\backendapi\\studybuddyapi\\studybuddyapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|solutionrelative:studybuddyapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{01E2D64B-5048-4165-99B8-36FFA1A67013}|StudyBuddyAPI\\StudyBuddyAPI.csproj|c:\\users\\lenovo\\desktop\\studybuddyfinder\\backendapi\\studybuddyapi\\studybuddyapi\\data\\appdbcontext..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,19 +39,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\StudyBuddyFinder\\BackendAPI\\StudyBuddyAPI\\StudyBuddyAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "StudyBuddyAPI\\appsettings.json",
+              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\StudyBuddyFinder\\BackendAPI\\StudyBuddyAPI\\StudyBuddyAPI\\appsettings.json",
+              "RelativeToolTip": "StudyBuddyAPI\\appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-03-16T05:08:11.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\StudyBuddyFinder\\BackendAPI\\StudyBuddyAPI\\StudyBuddyAPI\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "StudyBuddyAPI\\Controllers\\UserController.cs",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\StudyBuddyFinder\\BackendAPI\\StudyBuddyAPI\\StudyBuddyAPI\\Controllers\\UserController.cs",
               "RelativeToolTip": "StudyBuddyAPI\\Controllers\\UserController.cs",
-              "ViewState": "AQIAAE8AAAAAAAAAAAAwwF8AAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAF8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-16T05:07:09.102Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\StudyBuddyFinder\\BackendAPI\\StudyBuddyAPI\\StudyBuddyAPI\\Models\\User.cs",
               "RelativeDocumentMoniker": "StudyBuddyAPI\\Models\\User.cs",
@@ -63,7 +76,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "WeatherForecastController.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\StudyBuddyFinder\\BackendAPI\\StudyBuddyAPI\\StudyBuddyAPI\\Controllers\\WeatherForecastController.cs",
               "RelativeDocumentMoniker": "StudyBuddyAPI\\Controllers\\WeatherForecastController.cs",
@@ -72,18 +85,6 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-16T07:35:10.058Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\StudyBuddyFinder\\BackendAPI\\StudyBuddyAPI\\StudyBuddyAPI\\appsettings.json",
-              "RelativeDocumentMoniker": "StudyBuddyAPI\\appsettings.json",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\StudyBuddyFinder\\BackendAPI\\StudyBuddyAPI\\StudyBuddyAPI\\appsettings.json",
-              "RelativeToolTip": "StudyBuddyAPI\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-03-16T05:08:11.622Z"
             },
             {
               "$type": "Document",
@@ -99,7 +100,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\StudyBuddyFinder\\BackendAPI\\StudyBuddyAPI\\StudyBuddyAPI\\Program.cs",
               "RelativeDocumentMoniker": "StudyBuddyAPI\\Program.cs",
@@ -107,7 +108,8 @@
               "RelativeToolTip": "StudyBuddyAPI\\Program.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAAoAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-16T04:59:24.742Z"
+              "WhenOpened": "2024-03-16T04:59:24.742Z",
+              "EditorCaption": ""
             }
           ]
         }
