@@ -14,4 +14,7 @@
 - Jadi kek global variable gitu, ga harus nge parse informasi login user dari satu page ke page lainnya
 - Implementasi redux bisa dilihat di folder redux
 - Contoh penggunaan bisa diliat di src/LoginPage.tsx, src/RegisterPage.tsx, src/Home.tsx
-
+## How to Run
+- Buka visual studio, run backendnya (yg panah ijo http itu)
+- Run frontendnya kyk biasa
+- **Note**: Kadang emulatornya kontol, perlu matiin firewall buat bisa request ke api nya
