@@ -1,20 +1,12 @@
-# What's new :O
->**Note**: Sebelum nyoba fitur login regist, pastikan udah buat DB StudyBuddyDatabase pake query yg ada di folder BackendAPI, trus ganti connection string di appsettings.json. more info below
-## Backend
-- Backend pake ASP .NET CORE Web API tapi DB nya pake SQL Server, bukan MYSQL
-- Baru ada model User dan controller UserController buat ngehandle request login & register
-- **PENTING**: ganti connection string di appsettings.json buat hubungin ke database kalian
-## Cara ganti connection string
-- Buka visual studio, buka SQL Server Object Explorer
-- Dalam SQL Server Object Explorer, buka server yg ada DB StudyBuddyDatabase, klik DB StudyBuddyDatabase, terus lihat propertiesnya
-- di drop down General, cari row connection string
-- copas connection stringnya, ganti "DefaultConnection" di appsettings.json
-## Redux
-- Redux dipake buat ngeakses informasi login user secara global.
-- Jadi kek global variable gitu, ga harus nge parse informasi login user dari satu page ke page lainnya
-- Implementasi redux bisa dilihat di folder redux
-- Contoh penggunaan bisa diliat di src/LoginPage.tsx, src/RegisterPage.tsx, src/Home.tsx
-## How to Run
-- Buka visual studio, run backendnya (yg panah ijo http itu)
-- Run frontendnya kyk biasa
-- **Note**: Kadang emulatornya kontol, perlu matiin firewall buat bisa request ke api nya
+# BREAKING NEWS
+- Versi ini ***GA ADA APP BUAT BACKEND SAMSEK***, jadi langsung ngotak ngatik react nativenya doang :D
+- Databasenya udah dipindah ke supabase, jadi database yg dipake buat development ini shared & bisa diakses siapapun https://supabase.com/dashboard/project/tqiixohvighfwvmhabhj
+
+## Positive changes:
+- GAMPANG BANGET modif data dlm database (kek pake excel doang)
+- Bisa langsung fokus ngoding di react native, ASP .NET API nya hapus aja
+- Lebih gampang dimengerti (imo) karena syntax buat ngeakses API supabasenya sederhana
+## Negative changes:
+- Perubahan database jadi serem krn bisa ngerusak cara kerja app yg dikerjain dev lain
+- Ga bisa ngebranching databasenya, jadi kalo mw ngetes perubahan harus buat database supabase kalian masing2
+- Kalo pake API sebelumnya, beberapa proses (misal kek kodingan untuk ngehitung avg rating seorang user) bisa dicode dalem apinya. Karena kita pake built in API dari Supabase, kita g bisa ngoding proses2 tersebut, jadi proses2 tersebut harus di code dalam react nativenya (kemungkinan codingan jadi rame) (honestly tho mungkin kalo API banyak prosesnya jadi lambat & ngaruh ke performa but idk idgaf at this point)
