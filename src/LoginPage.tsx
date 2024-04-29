@@ -1,13 +1,13 @@
 import { useNavigation } from "@react-navigation/native"
-import axios from "axios"
 import { useEffect, useState } from "react"
 import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch} from "react-redux"
 import { useAppSelector } from "../redux/hook"
 import { userLogin } from "../redux/slices/LoginSlice"
+import 'react-native-url-polyfill/auto'
+import { createClient } from '@supabase/supabase-js'
 export type user = {
-    id: string,
     username: string,
     pass: string,
     email: string,
@@ -15,7 +15,8 @@ export type user = {
     studysubject: string,
     about: string,
     latitude: number,
-    longitude: number
+    longitude: number,
+    ratings:number
 }
 const LoginPage = () => {
     const [email, setEmail] = useState("")
@@ -24,11 +25,16 @@ const LoginPage = () => {
     const navigation = useNavigation()
     const loggedUser = useAppSelector((state) => state.login.loggedUser)
     const dispatch = useDispatch()
+    
     const getUser = async () => {
         try {
-            const res = await axios.get(`http://10.0.2.2:5082/api/User/${encodeURIComponent(email)}, ${encodeURIComponent(password)}`)
-            if (res.data != null) dispatch(userLogin(res.data))
-            else setWarning(true)
+            const supabase = createClient("https://tqiixohvighfwvmhabhj.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxaWl4b2h2aWdoZnd2bWhhYmhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQzNjE0MzEsImV4cCI6MjAyOTkzNzQzMX0.BUrNV-agn62hzdPQfKXhHizaSef3d9J1yt_w9Ad3F2k")
+            const data = await supabase.from('msUsers').select().eq('email', email).eq('pass', password)
+            if(data.data?.length != 0){
+                dispatch(userLogin(data.data?.at(0)))
+            }else{
+                setWarning(true)
+            }
         } catch (error) {
             setWarning(true)
         }
