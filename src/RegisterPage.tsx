@@ -1,22 +1,14 @@
 import { useNavigation } from "@react-navigation/native"
-import axios from "axios"
 import { useEffect, useState } from "react"
-import { Alert, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useDispatch } from "react-redux"
 import { userLogin } from "../redux/slices/LoginSlice"
 import { useAppSelector } from "../redux/hook"
-export type user = {
-    id: string,
-    username: string,
-    pass: string,
-    email: string,
-    rating: number,
-    studysubject: string,
-    about: string,
-    latitude: number,
-    longitude: number
-}
+import { createClient } from "@supabase/supabase-js"
+import 'react-native-url-polyfill/auto'
+import { user } from "./LoginPage"
+import supabase from "./SupabaseCLient"
 const RegisterPage = () => {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
@@ -29,9 +21,26 @@ const RegisterPage = () => {
         var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         try {
             if (username != "" && password != "" && validRegex.test(email)) {
-                const res = await axios.post(`http://10.0.2.2:5082/api/User/${username.trim()}, ${email.trim()}, ${password.trim()}`)
-                if (res.data != null) dispatch(userLogin(res.data))
-                else setWarning(true)
+                const sameEmail = await supabase.from('msUsers').select().eq('email', email)
+                const sameUsername = await supabase.from('msUsers').select().eq('username', username)
+                if (sameEmail.data?.length == 0 && sameUsername.data?.length == 0) {
+                    const newUser: user = {
+                        username: username,
+                        pass: password,
+                        email: email,
+                        rating: 0,
+                        studysubject: "",
+                        about: "",
+                        latitude: 0,
+                        longitude: 0,
+                        ratings: 0
+                    }
+                    await supabase.from('msUsers').insert(newUser)
+                    dispatch(userLogin(newUser))
+                }
+                else{
+                    setWarning(true)
+                }
             }
             else {
                 setWarning(true)
@@ -49,14 +58,12 @@ const RegisterPage = () => {
             <View style={{ marginTop: 10, paddingBottom: 600 }}>
                 <View style={styles.top}>
                     <View style={styles.topButton}>
-                        <TouchableOpacity onPress={()=>{navigation.navigate('LoginPage')}}>
-                            <Image style={{width:32,height:32}}source={require('../assets/Arrow_left.png')}/>
+                        <TouchableOpacity onPress={() => { navigation.navigate('LoginPage') }}>
+                            <Image style={{ width: 32, height: 32 }} source={require('../assets/Arrow_left.png')} />
                         </TouchableOpacity>
                     </View>
                     <Text style={styles.topText}>Register</Text>
-
                     <TouchableOpacity style={styles.topButton}>
-                        
                     </TouchableOpacity>
                 </View>
                 {warning == true ?
@@ -76,9 +83,7 @@ const RegisterPage = () => {
                     fontSize: 16,
                 }}>Register</Text></TouchableOpacity>
                 <View style={styles.line}></View>
-
             </View>
-
         </SafeAreaView>
     )
 }
@@ -86,7 +91,7 @@ const styles = StyleSheet.create({
     Logout: {
         width: 32,
         height: 32,
-        justifyContent:'center'
+        justifyContent: 'center'
     },
     top: {
         flexDirection: 'row',
