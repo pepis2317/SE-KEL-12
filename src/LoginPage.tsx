@@ -6,8 +6,9 @@ import { useDispatch} from "react-redux"
 import { useAppSelector } from "../redux/hook"
 import { userLogin } from "../redux/slices/LoginSlice"
 import 'react-native-url-polyfill/auto'
-import { createClient } from '@supabase/supabase-js'
+import supabase from "./SupabaseCLient"
 export type user = {
+    id?: number,
     username: string,
     pass: string,
     email: string,
@@ -28,7 +29,6 @@ const LoginPage = () => {
     
     const getUser = async () => {
         try {
-            const supabase = createClient("https://tqiixohvighfwvmhabhj.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxaWl4b2h2aWdoZnd2bWhhYmhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQzNjE0MzEsImV4cCI6MjAyOTkzNzQzMX0.BUrNV-agn62hzdPQfKXhHizaSef3d9J1yt_w9Ad3F2k")
             const data = await supabase.from('msUsers').select().eq('email', email).eq('pass', password)
             if(data.data?.length != 0){
                 dispatch(userLogin(data.data?.at(0)))

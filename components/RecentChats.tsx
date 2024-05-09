@@ -1,37 +1,83 @@
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useNavigation } from "@react-navigation/native"
+import { useEffect, useState } from "react"
+import supabase from "../src/SupabaseCLient"
+import { useAppSelector } from "../redux/hook"
+import ProfilePic from "./ProfilePic"
 
 
 const RecentChats = () => {
     const navigation = useNavigation()
+    const loggedUser = useAppSelector((state) => state.login.loggedUser)
+    const [RecentChats, setRecents] = useState<any[]>([])
+    useEffect(() => {
+        const getRecents = async () => {
+            try {
+                const data = await supabase.from("availableForChatting").select("availableForChatting_receiver_fkey(id, username, pfp), availableForChatting_sender_fkey(id, username, pfp)").or(`sender.eq.${loggedUser?.id}, receiver.eq.${loggedUser?.id}`).order("time", {ascending:false})
+                
+                const chats: any = []
+
+                data.data?.map((chat) => {
+                    if (chat.availableForChatting_sender_fkey.id == loggedUser?.id) {
+                        const user = {
+                            id: chat.availableForChatting_receiver_fkey.id,
+                            username: chat.availableForChatting_receiver_fkey.username,
+                            pfp: chat.availableForChatting_receiver_fkey.pfp
+                        }
+                        chats.push(user)
+                    } else {
+                        const user = {
+                            id: chat.availableForChatting_sender_fkey.id,
+                            username: chat.availableForChatting_sender_fkey.username,
+                            pfp: chat.availableForChatting_sender_fkey.pfp
+                        }
+                        chats.push(user)
+                    }
+                })
+                setRecents(chats.flat())
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        getRecents()
+    })
     return (
         <SafeAreaView style={styles.RecentsContainer}>
             <Text style={styles.text}>Recent Chats</Text>
-            <ScrollView style={styles.chatsContainer} horizontal={true} contentContainerStyle={{ paddingRight: 25 }} showsHorizontalScrollIndicator={false}>
-                <View style={styles.ChatContainer}>
-                    <TouchableOpacity style={styles.pfp} onPress={() => navigation.navigate('Test', { userID: "ASS" })}>
-                        <Image source={require('../assets/Header/CornerDecor.png')} style={styles.pfpimg} />
-                    </TouchableOpacity>
-                    <Text style={styles.name}>ASS</Text>
+            {RecentChats.length != 0 ?
+                <ScrollView style={styles.chatsContainer} horizontal={true} contentContainerStyle={{ paddingRight: 25 }} showsHorizontalScrollIndicator={false} >
+                    {RecentChats?.map((x) => (
+                        <View key={x.id} style={styles.ChatContainer}>
+                            <TouchableOpacity style={styles.pfp} onPress={() => navigation.navigate('Chat', { userID: x.id, username: x.username, pfp: x.pfp })}>
+                                <ProfilePic pfp={x.pfp} size={90}/>
+                            </TouchableOpacity>
+                            <Text style={styles.name}>{x.username}</Text>
+                        </View>
+
+                    ))}
+                </ScrollView> :
+                <View style={styles.noChatsContainer}>
+                    <Text style={styles.noChats}>Nobody wants you lil bro</Text>
                 </View>
-                <View style={styles.ChatContainer}>
-                    <TouchableOpacity style={styles.pfp} onPress={() => navigation.navigate('Test', { userID: "FUCK" })}>
-                        <Image source={require('../assets/Header/CornerDecor.png')} style={styles.pfpimg} />
-                    </TouchableOpacity>
-                    <Text style={styles.name}>FUCK</Text>
-                </View>
-                <View style={styles.ChatContainer}>
-                    <TouchableOpacity style={styles.pfp} onPress={() => navigation.navigate('Test', { userID: "BITCH" })}>
-                        <Image source={require('../assets/Header/CornerDecor.png')} style={styles.pfpimg} />
-                    </TouchableOpacity>
-                    <Text style={styles.name}>BITCH</Text>
-                </View>
-            </ScrollView>
+            }
+
         </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({
+    noChatsContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 20
+    },
+    noChats: {
+        fontFamily: 'Montserrat-Regular',
+        fontSize: 16,
+        color: 'white',
+
+    },
     ChatContainer: {
         width: 97,
         justifyContent: 'center',

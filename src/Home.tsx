@@ -1,9 +1,9 @@
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { Image, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Header from "../components/Header"
 import RecentChats from "../components/RecentChats"
 import Services from "../components/Services"
 import Promotional from "../components/Promotional"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useNavigation } from "@react-navigation/native"
 import { useAppSelector } from "../redux/hook"
 import { useDispatch } from "react-redux"
@@ -34,7 +34,7 @@ const Home = () => {
                     </TouchableOpacity>
                 </View>
                 <Header username={loggedUser== null? "Username":loggedUser.username} />
-                <RecentChats />
+                <RecentChats/>
                 <Services />
                 <Promotional />
             </ScrollView>

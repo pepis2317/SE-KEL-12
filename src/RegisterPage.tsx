@@ -8,6 +8,7 @@ import { useAppSelector } from "../redux/hook"
 import { createClient } from "@supabase/supabase-js"
 import 'react-native-url-polyfill/auto'
 import { user } from "./LoginPage"
+import supabase from "./SupabaseCLient"
 const RegisterPage = () => {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
@@ -20,7 +21,6 @@ const RegisterPage = () => {
         var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         try {
             if (username != "" && password != "" && validRegex.test(email)) {
-                const supabase = createClient("https://tqiixohvighfwvmhabhj.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxaWl4b2h2aWdoZnd2bWhhYmhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQzNjE0MzEsImV4cCI6MjAyOTkzNzQzMX0.BUrNV-agn62hzdPQfKXhHizaSef3d9J1yt_w9Ad3F2k")
                 const sameEmail = await supabase.from('msUsers').select().eq('email', email)
                 const sameUsername = await supabase.from('msUsers').select().eq('username', username)
                 if (sameEmail.data?.length == 0 && sameUsername.data?.length == 0) {
