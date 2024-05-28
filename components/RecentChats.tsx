@@ -42,7 +42,7 @@ const RecentChats = () => {
             }
         }
         getRecents()
-    })
+    },[])
     return (
         <SafeAreaView style={styles.RecentsContainer}>
             <Text style={styles.text}>Recent Chats</Text>

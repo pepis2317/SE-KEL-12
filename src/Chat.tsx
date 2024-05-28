@@ -69,7 +69,7 @@ const Test = ({ route }: RootStackScreenProps<'Chat'>) => {
             }
         }
         getMessages()
-    })
+    },[])
     return (
         <SafeAreaView style={{ minHeight: "100%", backgroundColor: '#20232A' }}>
             <View style={styles.top}>

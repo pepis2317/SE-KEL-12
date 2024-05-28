@@ -24,7 +24,7 @@ const Chats = () => {
             }
         }
         getChats()
-    })
+    },[])
 
     return (
         <SafeAreaView style={{ backgroundColor: '#20232A', minHeight: '100%' }}>
