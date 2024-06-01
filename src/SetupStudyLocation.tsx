@@ -57,6 +57,7 @@ const SetupStudyLocation = () => {
                 </MapView>
                 {!isPressable ?
                     <View style={styles.popup}>
+                        <Image source={require('../assets/yay.png')} style={{width:300, objectFit:'contain', marginTop:-70, marginBottom:20}}/>
                         <Text style={styles.updateText}>Location Updated!</Text>
                         <TouchableOpacity style={styles.backToHome} onPress={()=>navigation.navigate('Home')}>
                             <Text style={styles.set}>Back to Home</Text>
@@ -74,7 +75,7 @@ export default SetupStudyLocation
 
 const styles = StyleSheet.create({
     updateText:{
-        fontFamily: 'Montserrat-Regular',
+        fontFamily: 'Montserrat-SemiBold',
         color: 'white',
         fontSize: 16,
     },
