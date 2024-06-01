@@ -24,7 +24,7 @@ const Navbar = () => {
                     <Image source={require('../assets/Navbar/Home.png')} />
                     <View style={selectedButton == 'Home' ? styles.selected : styles.unselected}></View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.navButton} onPress={() => navButtonPress('FindBuddy')}>
+                <TouchableOpacity style={styles.navButton} onPress={() => navButtonPress('SelectFindingMethod')}>
                     <Image source={require('../assets/Navbar/Find.png')} />
                     <View style={selectedButton == 'FindBuddy' ? styles.selected : styles.unselected}></View>
                 </TouchableOpacity>

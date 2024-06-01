@@ -5,10 +5,11 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { useDispatch } from "react-redux"
 import { userLogin } from "../redux/slices/LoginSlice"
 import { useAppSelector } from "../redux/hook"
-import { createClient } from "@supabase/supabase-js"
+
 import 'react-native-url-polyfill/auto'
-import { user } from "./LoginPage"
+
 import supabase from "./SupabaseCLient"
+import { user } from "./LoginPage"
 const RegisterPage = () => {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
@@ -24,18 +25,19 @@ const RegisterPage = () => {
                 const sameEmail = await supabase.from('msUsers').select().eq('email', email)
                 const sameUsername = await supabase.from('msUsers').select().eq('username', username)
                 if (sameEmail.data?.length == 0 && sameUsername.data?.length == 0) {
-                    const newUser: user = {
+                    const newUser: user= {
                         username: username,
                         pass: password,
                         email: email,
                         rating: 0,
-                        studysubject: "",
-                        about: "",
-                        latitude: 0,
-                        longitude: 0,
-                        ratings: 0
+                        studysubject: "Nothing in particular",
+                        about: `${username} has not shared more about themselves`,
+                        ratings: 0,
                     }
                     await supabase.from('msUsers').insert(newUser)
+                    const newUserIDData = await supabase.from('msUsers').select("id").eq('email', email).eq('pass', password)
+                    const newUserID = newUserIDData.data?.at(0)?.id
+                    newUser.id = newUserID
                     dispatch(userLogin(newUser))
                 }
                 else{

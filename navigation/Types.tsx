@@ -1,5 +1,8 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ChatParams } from "../src/Chat";
+import { sendRequestParams } from "../src/SendRequest";
+import { RequestParams } from "../src/Request";
+import { findParams } from "../src/FindBuddy";
 
 
 
@@ -11,10 +14,12 @@ export type RootStackParamList = {
     SetupStudyLocation:undefined,
     AccountSettings:undefined,
     PrivacySettings:undefined,
-    FindBuddy:undefined,
+    FindBuddy:findParams,
     RequestNotif:undefined,
     Chats:undefined,
-    Request: ChatParams
+    Request: RequestParams,
+    SendRequest: sendRequestParams,
+    SelectFindingMethod: undefined,
 }
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, T>;

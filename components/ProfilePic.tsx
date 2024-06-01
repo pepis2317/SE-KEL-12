@@ -8,6 +8,7 @@ const ProfilePic = ({ pfp, size}: { pfp: string, size: number}) => {
                     width: size,
                     height: size,
                     backgroundColor: '#5A5A5A',
+                    borderRadius: 100,
                 }} />
         )
     }

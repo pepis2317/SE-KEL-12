@@ -3,6 +3,7 @@ import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native"
 
 const Header = ({username}:{username:string}) => {
     const [time, setTime] = useState(new Date().toLocaleTimeString());
+    
     useEffect(() => {
         let secTimer = setInterval(() => {
             setTime(new Date().toLocaleTimeString([], {

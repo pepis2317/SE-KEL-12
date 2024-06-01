@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useEffect, useState } from "react"
 import { createClient } from "@supabase/supabase-js"
@@ -9,36 +9,57 @@ import ChatContainer from "../components/ChatContainer"
 
 
 const Chats = () => {
-    const [chats, setChats] = useState<any[] | null>()
     const loggedUser = useAppSelector((state) => state.login.loggedUser)
-    useEffect(() => {
-        const getChats = async () => {
-            try {
-                const chats = await supabase.from("availableForChatting").select("id, availableForChatting_receiver_fkey(id, username, pfp), availableForChatting_sender_fkey(id, username, pfp), latestChat").or(`sender.eq.${loggedUser?.id}, receiver.eq.${loggedUser?.id}`).order("time", { ascending: false })
-                if (chats.data?.length != 0) {
-                    setChats(chats.data)
-                }
-            }
-            catch (err) {
-                console.log(err)
+    const [chats, setChats] = useState<any[] | null>()
+    const getChats = async () => {
+        try {
+            const chats = await supabase.from("availableForChatting").select("id, availableForChatting_receiver_fkey(id, username, pfp), availableForChatting_sender_fkey(id, username, pfp), latestChat, room")
+                .or(`sender.eq.${loggedUser?.id}, receiver.eq.${loggedUser?.id}`).order("time", { ascending: false })
+            if (chats.data?.length != 0) {
+                setChats(chats.data)
             }
         }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    useEffect(() => {
         getChats()
-    },[])
+    }, [])
+    const handleInserts = (payload: any) => {
+        getChats()
+    };
 
+    useEffect(() => {
+        const channel = supabase
+            .channel(`${loggedUser?.id}-chats`)
+            .on('postgres_changes', {
+                event: 'UPDATE',
+                schema: 'public',
+                table: 'availableForChatting',
+            }, handleInserts)
+            .subscribe();
+
+        return () => {
+            channel.unsubscribe();
+        };
+    }, []);
     return (
         <SafeAreaView style={{ backgroundColor: '#20232A', minHeight: '100%' }}>
             <View style={styles.top}>
                 <Text style={styles.topText}>Chats</Text>
             </View>
-            {chats?.map((chat) => (
-                <View key={chat.id}>
-                    {chat.availableForChatting_sender_fkey.id == loggedUser?.id ?
-                        <ChatContainer id={chat.availableForChatting_receiver_fkey.id} sender={loggedUser?.id} username={chat.availableForChatting_receiver_fkey.username} pfp={chat.availableForChatting_receiver_fkey.pfp} message={chat.latestChat} /> :
-                        <ChatContainer id={chat.availableForChatting_sender_fkey.id} sender={chat.availableForChatting_sender_fkey.id} username={chat.availableForChatting_sender_fkey.username} pfp={chat.availableForChatting_sender_fkey.pfp} message={chat.latestChat} />
-                    }
-                </View>
-            ))}
+            <ScrollView style={{ marginBottom: 120 }}>
+                {chats?.map((chat) => (
+                    <View key={chat.id}>
+                        {chat.availableForChatting_sender_fkey.id == loggedUser?.id ?
+                            <ChatContainer id={chat.availableForChatting_receiver_fkey.id} sender={loggedUser?.id} username={chat.availableForChatting_receiver_fkey.username} pfp={chat.availableForChatting_receiver_fkey.pfp} message={chat.latestChat} room={chat.room} /> :
+                            <ChatContainer id={chat.availableForChatting_sender_fkey.id} sender={chat.availableForChatting_sender_fkey.id} username={chat.availableForChatting_sender_fkey.username} pfp={chat.availableForChatting_sender_fkey.pfp} message={chat.latestChat} room={chat.room} />
+                        }
+                    </View>
+                ))}
+            </ScrollView>
+
         </SafeAreaView>
     )
 }

@@ -2,12 +2,12 @@ import { useNavigation } from "@react-navigation/native"
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useAppSelector } from "../redux/hook"
 
-const ChatContainer = ({ id, sender, username, pfp, message }: { id: number, sender: number | undefined, username: string, pfp: string, message: string }) => {
+const ChatContainer = ({ id, sender, username, pfp, message, room }: { id: number, sender: number | undefined, username: string, pfp: string, message: string, room:string }) => {
     const navigation = useNavigation()
     const loggedUser = useAppSelector((state) => state.login.loggedUser)
 
     return (
-        <TouchableOpacity style={styles.chatContainer} onPress={() => navigation.navigate('Chat', { userID: id, username: username, pfp: pfp })}>
+        <TouchableOpacity style={styles.chatContainer} onPress={() => navigation.navigate('Chat', { userID: id, username: username, pfp: pfp, room:room })}>
             <View style={styles.chat}>
                 <View style={{ elevation: 3, borderRadius: 100, overflow: 'hidden' }}>
                     {pfp == "" ? <Image source={require('../assets/Header/CornerDecor.png')} style={styles.pfp} /> : <Image source={{ uri: pfp }} style={styles.pfp} />}

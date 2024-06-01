@@ -10,12 +10,13 @@ import ProfilePic from "../components/ProfilePic"
 export type ChatParams = {
     userID: number,
     username: string,
-    pfp: string
+    pfp: string,
+    room:string
 }
 
 const Test = ({ route }: RootStackScreenProps<'Chat'>) => {
     const loggedUser = useAppSelector((state) => state.login.loggedUser)
-    const [messages, setMessages] = useState<any[] | null>()
+    const [messages, setMessages] =  useState<any>([]);
     const [message, setMessage] = useState("")
     const navigation = useNavigation()
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -44,7 +45,8 @@ const Test = ({ route }: RootStackScreenProps<'Chat'>) => {
             const newMessage = {
                 sender: loggedUser?.id,
                 receiver: route.params.userID,
-                message: message
+                message: message,
+                room: route.params.room
             }
             const time = new Date()
             await supabase.from('msChats').insert(newMessage)
@@ -70,6 +72,24 @@ const Test = ({ route }: RootStackScreenProps<'Chat'>) => {
         }
         getMessages()
     },[])
+    const handleInserts = (payload:any) => {
+        const newMessage = payload.new;
+        // Append new message to existing messages
+        setMessages((prevMessages:any) => [...prevMessages, newMessage]);
+    };
+
+    useEffect(() => {
+        const channel = supabase
+            .channel(route.params.room)
+            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'msChats',filter: `room=eq.${route.params.room}` }, handleInserts)
+            .subscribe();
+
+        // Cleanup on unmount
+        return () => {
+            channel.unsubscribe();
+        };
+    }, []);
+    
     return (
         <SafeAreaView style={{ minHeight: "100%", backgroundColor: '#20232A' }}>
             <View style={styles.top}>
@@ -80,7 +100,7 @@ const Test = ({ route }: RootStackScreenProps<'Chat'>) => {
                 <Text style={styles.topText}>{route.params.username}</Text>
             </View>
             <ScrollView ref={ref => { this.ScrollView = ref }} onContentSizeChange={() => this.ScrollView.scrollToEnd({ animated: false })} style={isKeyboardVisible ? styles.shrunkChatDisplay : styles.chatDisplay}>
-                {messages?.map((message) => {
+                {messages?.map((message:any) => {
                     if (message.sender == loggedUser?.id) {
                         return (
                             <Text key={message.id} style={styles.sentMessage} >{message.message}</Text>

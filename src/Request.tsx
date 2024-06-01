@@ -8,6 +8,11 @@ import { useAppSelector } from "../redux/hook"
 import supabase from "./SupabaseCLient"
 import ProfilePic from "../components/ProfilePic"
 
+export type RequestParams = {
+    userID: number 
+    username: string , 
+    pfp: string
+}
 export const Request = ({ route }: RootStackScreenProps<'Request'>) => {
     const navigation = useNavigation()
     const loggedUser = useAppSelector((state) => state.login.loggedUser)

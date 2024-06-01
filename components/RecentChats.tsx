@@ -11,38 +11,58 @@ const RecentChats = () => {
     const navigation = useNavigation()
     const loggedUser = useAppSelector((state) => state.login.loggedUser)
     const [RecentChats, setRecents] = useState<any[]>([])
-    useEffect(() => {
-        const getRecents = async () => {
-            try {
-                const data = await supabase.from("availableForChatting").select("availableForChatting_receiver_fkey(id, username, pfp), availableForChatting_sender_fkey(id, username, pfp)").or(`sender.eq.${loggedUser?.id}, receiver.eq.${loggedUser?.id}`).order("time", {ascending:false})
-                
-                const chats: any = []
+    const getRecents = async () => {
+        try {
+            const data = await supabase.from("availableForChatting").select("availableForChatting_receiver_fkey(id, username, pfp), availableForChatting_sender_fkey(id, username, pfp), id, room").or(`sender.eq.${loggedUser?.id}, receiver.eq.${loggedUser?.id}`).order("time", { ascending: false })
+            const chats: any = []
 
-                data.data?.map((chat) => {
-                    if (chat.availableForChatting_sender_fkey.id == loggedUser?.id) {
-                        const user = {
-                            id: chat.availableForChatting_receiver_fkey.id,
-                            username: chat.availableForChatting_receiver_fkey.username,
-                            pfp: chat.availableForChatting_receiver_fkey.pfp
-                        }
-                        chats.push(user)
-                    } else {
-                        const user = {
-                            id: chat.availableForChatting_sender_fkey.id,
-                            username: chat.availableForChatting_sender_fkey.username,
-                            pfp: chat.availableForChatting_sender_fkey.pfp
-                        }
-                        chats.push(user)
+            data.data?.map((chat) => {
+                if (chat.availableForChatting_sender_fkey.id == loggedUser?.id) {
+                    const user = {
+                        id: chat.availableForChatting_receiver_fkey.id,
+                        username: chat.availableForChatting_receiver_fkey.username,
+                        pfp: chat.availableForChatting_receiver_fkey.pfp,
+                        room: chat.room
                     }
-                })
-                setRecents(chats.flat())
-            }
-            catch (err) {
-                console.log(err)
-            }
+                    chats.push(user)
+                } else {
+                    const user = {
+                        id: chat.availableForChatting_sender_fkey.id,
+                        username: chat.availableForChatting_sender_fkey.username,
+                        pfp: chat.availableForChatting_sender_fkey.pfp,
+                        room: chat.room
+                    }
+                    chats.push(user)
+                }
+            })
+            setRecents(chats.flat())
         }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    useEffect(() => {
         getRecents()
-    },[])
+    }, [])
+    const handleInserts = (payload: any) => {
+        getRecents()
+    };
+
+    useEffect(() => {
+
+        const channel = supabase
+            .channel(`${loggedUser?.id}-chats`)
+            .on('postgres_changes', {
+                event: 'UPDATE',
+                schema: 'public',
+                table: 'availableForChatting',
+            }, handleInserts)
+            .subscribe();
+
+        return () => {
+            channel.unsubscribe();
+        };
+    }, []);
     return (
         <SafeAreaView style={styles.RecentsContainer}>
             <Text style={styles.text}>Recent Chats</Text>
@@ -50,12 +70,11 @@ const RecentChats = () => {
                 <ScrollView style={styles.chatsContainer} horizontal={true} contentContainerStyle={{ paddingRight: 25 }} showsHorizontalScrollIndicator={false} >
                     {RecentChats?.map((x) => (
                         <View key={x.id} style={styles.ChatContainer}>
-                            <TouchableOpacity style={styles.pfp} onPress={() => navigation.navigate('Chat', { userID: x.id, username: x.username, pfp: x.pfp })}>
-                                <ProfilePic pfp={x.pfp} size={90}/>
+                            <TouchableOpacity style={styles.pfp} onPress={() => navigation.navigate('Chat', { userID: x.id, username: x.username, pfp: x.pfp, room: x.room })}>
+                                <ProfilePic pfp={x.pfp} size={90} />
                             </TouchableOpacity>
                             <Text style={styles.name}>{x.username}</Text>
                         </View>
-
                     ))}
                 </ScrollView> :
                 <View style={styles.noChatsContainer}>
