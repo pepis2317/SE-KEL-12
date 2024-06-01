@@ -21,7 +21,7 @@ const RequestNotif = () => {
             }
         }
         getRequests()
-    })
+    },[])
     return (
         <SafeAreaView style={{ backgroundColor: '#20232A', minHeight: '100%' }}>
             <View style={styles.top}>
@@ -31,7 +31,7 @@ const RequestNotif = () => {
             <View style={styles.noRequestContainer}>
                 <Image source={require('../assets/noRequests.png')} style={{width:300, height:300}}/>
                 <Text style={styles.noRequestText}>
-                    Nobody wants you lil nigga
+                    Nobody wants you lil vro
                 </Text>
             </View> : <></>}
             {requests?.map((request) => (

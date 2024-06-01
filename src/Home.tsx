@@ -8,19 +8,41 @@ import { useNavigation } from "@react-navigation/native"
 import { useAppSelector } from "../redux/hook"
 import { useDispatch } from "react-redux"
 import { userLogout } from "../redux/slices/LoginSlice"
+import supabase from "./SupabaseCLient"
+import React from "react"
 
 const Home = () => {
     const loggedUser = useAppSelector((state)=>state.login.loggedUser)
+    const [name, setName]= useState('')
+    const [refreshing, setRefreshing] = useState(false)
     const navigation = useNavigation()
     const dispatch = useDispatch()
     const logoutButton = ()=>{
         dispatch(userLogout())
         navigation.navigate('LoginPage')
     }
-    
+    const getname = async ()=>{
+        const data = await supabase.from('msUsers').select('username').eq('id',loggedUser?.id )
+        if(data.data?.length!=0){
+            setName(data.data?.at(0)?.username)
+        }
+    }
+    useEffect(()=>{
+        
+        getname()
+    },[])
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getname()
+        setTimeout(() => {
+          setRefreshing(false);
+        }, 2000);
+      }, []);
     return (
         <SafeAreaView>
-            <ScrollView style={styles.background}>
+            <ScrollView style={styles.background} refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            } >
                 <View style={styles.top}>
                     <View style={styles.Logout}>
                         <TouchableOpacity style={styles.LogoutButton} onPress={logoutButton}>
@@ -33,7 +55,7 @@ const Home = () => {
                         <Image source={require('../assets/Info.png')} />
                     </TouchableOpacity>
                 </View>
-                <Header username={loggedUser== null? "Username":loggedUser.username} />
+                <Header username={loggedUser== null? "Username":name}/>
                 <RecentChats/>
                 <Services />
                 <Promotional />

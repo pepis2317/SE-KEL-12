@@ -15,9 +15,7 @@ export type user = {
     rating: number,
     studysubject: string,
     about: string,
-    latitude: number,
-    longitude: number,
-    ratings:number
+    ratings:number,
 }
 const LoginPage = () => {
     const [email, setEmail] = useState("")
@@ -47,7 +45,7 @@ const LoginPage = () => {
             <ScrollView>
                 <View style={styles.decor}>
                     <Text style={styles.title}>Welcome to Study Buddy Finder</Text>
-                    <Text style={styles.subtitle}>сука блять иди нахуй</Text>
+                    <Text style={styles.subtitle}>pre pre pre alpha build</Text>
                     <View style={styles.circle}><Image style={{ width: 200, height: 200, marginLeft: -8 }} source={require('../assets/Logo.png')} /></View>
                 </View>
                 {warning == true ?
