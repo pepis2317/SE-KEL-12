@@ -20,7 +20,7 @@ export default function SelectFindingMethod() {
             let { data: translatedCoordinates, error: coordinatesError } = await supabase.rpc('get_coordinates', { location: userCoordinates })
             if (coordinatesError) console.error(coordinatesError)
             else {
-                navigation.navigate('FindBuddy', { lat: translatedCoordinates.latitude, long: translatedCoordinates.longitude })
+                navigation.navigate('FindBuddy', { lat: translatedCoordinates.latitude, long: translatedCoordinates.longitude , isCurrentLocation:false})
 
             }
         }
@@ -32,7 +32,7 @@ export default function SelectFindingMethod() {
         }).then(location => {
             setUserLat(location.latitude)
             setUserLong(location.longitude)
-            navigation.navigate('FindBuddy', { lat: location.latitude, long: location.longitude })
+            navigation.navigate('FindBuddy', { lat: location.latitude, long: location.longitude, isCurrentLocation:true })
 
         })
     }

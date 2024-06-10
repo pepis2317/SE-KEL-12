@@ -13,6 +13,7 @@ import ProfilePic from "../components/ProfilePic"
 export type findParams = {
   lat: number,
   long: number,
+  isCurrentLocation: boolean
 }
 const FindBuddy = ({ route }: RootStackScreenProps<'FindBuddy'>) => {
   const loggedUser = useAppSelector((state) => state.login.loggedUser)
@@ -89,10 +90,10 @@ const FindBuddy = ({ route }: RootStackScreenProps<'FindBuddy'>) => {
               <Text style={styles.studying}>{selectedUser?.studysubject}</Text>
             </View>
           </View>
-          {isVisible ?
+          {isVisible || !route.params.isCurrentLocation ?
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SendRequest', { userID: selectedUser.id })}>
               <Text style={styles.buttonText}>Request {selectedUser?.username}</Text>
-            </TouchableOpacity> : <Text style={styles.vwarning}>Make your account visible to start meeting people you creep.</Text>}
+            </TouchableOpacity> : <Text style={styles.vwarning}>Sending requests is currently disabled.</Text>}
 
         </View>
         : <></>}
