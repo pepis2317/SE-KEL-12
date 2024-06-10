@@ -41,7 +41,7 @@ export default function SendRequest({ route }: RootStackScreenProps<'SendRequest
             }
         }
         const checkPressable = async () => {
-            const chats = await supabase.from("availableForChatting").select("id").filter('sender', 'in', `(${route.params.userID}, ${loggedUser?.id})`).filter('receiver', 'in', `(${route.params.userID}, ${loggedUser?.id})`)
+            const chats = await supabase.from("msRequests").select("id").filter('sender', 'in', `(${route.params.userID}, ${loggedUser?.id})`).filter('receiver', 'in', `(${route.params.userID}, ${loggedUser?.id})`)
             if (chats.data?.length == 0) {
                 setPressable(true)
             }
