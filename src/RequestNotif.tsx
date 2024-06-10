@@ -9,19 +9,36 @@ const RequestNotif = () => {
     const [requests, setRequests] = useState<any[] | null>()
     const loggedUser = useAppSelector((state) => state.login.loggedUser)
     const navigation = useNavigation()
-    useEffect(() => {
-        const getRequests = async () => {
-            try {
-                const data = await supabase.from('msRequests').select("id, msUsers!msRequests_sender_fkey(id, username, pfp), message").eq("status", "Pending").eq("receiver", loggedUser?.id).order("sentTime")
-
-                setRequests(data.data)
-            }
-            catch (err) {
-                console.log(err)
-            }
+    const getRequests = async () => {
+        try {
+            const data = await supabase.from('msRequests').select("id, msUsers!msRequests_sender_fkey(id, username, pfp), message").eq("status", "Pending").eq("receiver", loggedUser?.id).order("sentTime")
+            setRequests(data.data)
         }
+        catch (err) {
+            console.log(err)
+        }
+    }
+    useEffect(() => {
         getRequests()
-    },[])
+    }, [])
+    const handleInserts = (payload: any) => {
+        getRequests()
+    };
+
+    useEffect(() => {
+        const channel = supabase
+            .channel(`${loggedUser?.id}-chats`)
+            .on('postgres_changes', {
+                event: 'UPDATE',
+                schema: 'public',
+                table: 'msRequests',
+            }, handleInserts)
+            .subscribe();
+
+        return () => {
+            channel.unsubscribe();
+        };
+    }, []);
     return (
         <SafeAreaView style={{ backgroundColor: '#20232A', minHeight: '100%' }}>
             <View style={styles.top}>
