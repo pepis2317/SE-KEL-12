@@ -1,7 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import Navbar, { NeedsUser } from "../components/Navbar"
-import Map from '../components/Map'
 import { useEffect, useState } from "react"
 import { useAppSelector } from "../redux/hook"
 import supabase from "./SupabaseCLient"
@@ -90,7 +88,7 @@ const FindBuddy = ({ route }: RootStackScreenProps<'FindBuddy'>) => {
               <Text style={styles.studying}>{selectedUser?.studysubject}</Text>
             </View>
           </View>
-          {isVisible || !route.params.isCurrentLocation ?
+          {isVisible && !route.params.isCurrentLocation ?
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SendRequest', { userID: selectedUser.id })}>
               <Text style={styles.buttonText}>Request {selectedUser?.username}</Text>
             </TouchableOpacity> : <Text style={styles.vwarning}>Sending requests is currently disabled.</Text>}
