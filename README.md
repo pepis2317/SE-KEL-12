@@ -1,8 +1,6 @@
-# BUST UP IN THE CRIB USING STUDY BUDDY FINDER
-- Versi ini ***GA ADA APP BUAT BACKEND SAMSEK***, jadi langsung ngotak ngatik react nativenya doang :D
-- Databasenya udah dipindah ke supabase, jadi database yg dipake buat development ini shared & bisa diakses siapapun https://supabase.com/dashboard/project/tqiixohvighfwvmhabhj
-- uuh fucking uuhhh chat & chat request fully functional, klo ngetes tinggal ngotak ngatikd b
-- Map component udah di setup, tinggal liat dokumentasi/tutorial react-native-maps 
+# Link DB Study Buddy Finder
+https://supabase.com/dashboard/project/tqiixohvighfwvmhabhj
 
-## NOTE FROM ALM. CANDRA WIJAYA
-yg bingung ngetes/ mulai dri mn tinggal line/wa syh yh okh
+
+## NOTES
+Kendala login/register bisa jadi karena db di pause karena lama tidak diakses. Untuk unpause project Supabasenya, kontak 08164512317 (wa), candra.wijaya2317 (line)
